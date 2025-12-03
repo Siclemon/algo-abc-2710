@@ -11,6 +11,9 @@ public class sapin {
             int tronc;
             String choixPointe;
             char pointe = '^';
+            char gauche = '/';
+            char droite = '\\';
+            int rand;
             
             System.out.print("Entrer la taille du sapin : ");
             taille = sc.nextInt();
@@ -34,8 +37,19 @@ public class sapin {
             
             //branchage
             for (int i = 1; i <= taille; i++) {
-                
-                System.out.println(" ".repeat(taille-i) + "/".repeat(i)+"|" + "\\".repeat(i));
+                for (int j = -taille; j <= taille; j++) {
+                    rand = rng.nextInt(119);
+                    if (rand<5) gauche = 'O'; else gauche = '/';
+                    if (rand<5) droite = 'O'; else droite = '\\';
+                    if (rand>=5 && rand<10) gauche = 'o';
+                    if (rand>=5 && rand<10) droite = 'o';
+
+                    if (Math.abs(j)>i) System.out.print(" ");
+                    if (Math.abs(j)<=i && j<0) System.out.print(gauche);
+                    if (j==0) System.out.print("|");
+                    if (Math.abs(j)<=i && j>0) System.out.print(droite);
+                }
+                System.out.println();
                 
             }
             
