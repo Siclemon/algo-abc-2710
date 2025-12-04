@@ -35,7 +35,7 @@ public class sapin {
             quantiteNeige = sc.nextInt();
             quantiteNeige = 10*quantiteNeige;
 
-            System.out.print("Voulez des boules ? (oui/non) ");
+            System.out.print("Voulez vous des boules ? (oui/non) ");
             choixBoules = sc.next();   
 
 
@@ -57,9 +57,10 @@ public class sapin {
                     if (rand<quantiteNeige) branche = neige;
                     if (Math.abs(j)<=i) {
                         if(j<0) branche = '/';
-                        if(j>0) branche = '\\';
+                        else if(j>0) branche = '\\';
                         if (rand<5 && choixBoules.equals("oui")) branche = 'O';
-                        if (rand>=5 && rand<10 && choixBoules.equals("oui")) branche = 'o';
+                        else if (rand>=5 && rand<10 && choixBoules.equals("oui")) branche = 'o';
+                        //if (i%2==0) branche = '*';
                     }
                     if (j==0) branche = '|';
 
