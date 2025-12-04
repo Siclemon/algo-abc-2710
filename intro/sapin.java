@@ -16,17 +16,13 @@ public class sapin {
             int choixNeige;
             char neige;
             int quantiteNeige;
+            String choixBoules;
             
-            System.out.print("Entrer la taille du sapin : ");
+            System.out.print("Quelle taille de sapin ? ");
             taille = sc.nextInt();
             
-
-            
-            do {
-                System.out.print("Voulez vous un cimier ? (oui/non) ");
-                choixPointe = sc.next();
-            } while (!choixPointe.equals("oui") && !choixPointe.equals("non"));
-            
+            System.out.print("Voulez vous un cimier ? (oui/non) ");
+            choixPointe = sc.next();            
 
             System.out.print("Quel type de neige ? (0/1/2/3) ");
             choixNeige = sc.nextInt();
@@ -38,6 +34,9 @@ public class sapin {
             System.out.print("Quelle quantité de neige ? (0/1/2/3) ");
             quantiteNeige = sc.nextInt();
             quantiteNeige = 10*quantiteNeige;
+
+            System.out.print("Voulez des boules ? (oui/non) ");
+            choixBoules = sc.next();   
 
 
             //pointe du sapin
@@ -59,8 +58,8 @@ public class sapin {
                     if (Math.abs(j)<=i) {
                         if(j<0) branche = '/';
                         if(j>0) branche = '\\';
-                        if (rand<5) branche = 'O';
-                        if (rand>=5 && rand<10) branche = 'o';
+                        if (rand<5 && choixBoules.equals("oui")) branche = 'O';
+                        if (rand>=5 && rand<10 && choixBoules.equals("oui")) branche = 'o';
                     }
                     if (j==0) branche = '|';
 
