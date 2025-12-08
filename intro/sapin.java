@@ -10,13 +10,25 @@ public class sapin {
             int taille;
             int tronc;
             String choixPointe;
-            char pointe = '^';
+            String pointe = "^";
             int rand;
-            char branche;
+            String branche;
             int choixNeige;
             char neige;
-            int quantiteNeige;
+            int quantiteNeige = 0;
             String choixBoules;
+            String choixGuirlande;
+            char guirlande='*';
+
+            String reset = "\033[0m";
+            String noir = "\033[0;30m";
+            String rouge = "\033[0;91m";
+            String vert = "\033[0;32m";
+            String jaune = "\033[0;93m";
+            String bleu = "\033[0;94m";
+            String violet = "\033[0;95m";
+            String cyan = "\033[0;96m";
+            String blanc = "\033[0;97m";
             
             System.out.print("Quelle taille de sapin ? ");
             taille = sc.nextInt();
@@ -30,21 +42,29 @@ public class sapin {
             else if (choixNeige == 2) neige = ',';
             else if (choixNeige == 3) neige = '.';
             else neige = ' ';
-
-            System.out.print("Quelle quantité de neige ? (0/1/2/3) ");
-            quantiteNeige = sc.nextInt();
-            quantiteNeige = 10*quantiteNeige;
+            if (neige !=' ') {
+                System.out.print("Quelle quantité de neige ? (0/1/2/3+) ");
+                quantiteNeige = sc.nextInt();
+                quantiteNeige = 10*quantiteNeige;
+            }
 
             System.out.print("Voulez vous des boules ? (oui/non) ");
             choixBoules = sc.next();   
 
+            System.out.print("Voulez vous une guirlande ? (oui/non) ");
+            choixGuirlande = sc.next();
+            if (choixGuirlande.equalsIgnoreCase("oui")) {
+                System.out.print("Quel type de guirlande ? ");
+                guirlande = sc.next().charAt(0);
+            }
+
 
             //pointe du sapin
             if(choixPointe.equals("oui")) {
-                if(taille <= 5) pointe = '*';
-                else if(5 < taille && taille <= 11) pointe = 'x';
-                else if(taille > 11) pointe = 'X';
-            } else pointe = '^';
+                if(taille <= 5) pointe = jaune+"*";
+                else if(5 < taille && taille <= 11) pointe = jaune+"x";
+                else if(taille > 11) pointe = jaune+"X";
+            } else pointe = vert+"^";
             System.out.println(" ".repeat(taille) + pointe);
             
             
@@ -53,18 +73,20 @@ public class sapin {
                 for (int j = -taille; j <= taille; j++) {
                     rand = rng.nextInt(119);
 
-                    branche = ' ';
-                    if (rand<quantiteNeige) branche = neige;
+                    branche = " ";
+                    if (rand<quantiteNeige) branche = Character.toString(neige); //neige
                     if (Math.abs(j)<=i) {
-                        if(j<0) branche = '/';
-                        else if(j>0) branche = '\\';
-                        if (rand<5 && choixBoules.equals("oui")) branche = 'O';
-                        else if (rand>=5 && rand<10 && choixBoules.equals("oui")) branche = 'o';
-                        //if (i%2==0) branche = '*';
-                    }
-                    if (j==0) branche = '|';
+                        if(j<0) branche = vert+"/"; //branches normales
+                        else if(j>0) branche = vert+"\\";
+                        
+                        if (rand<5 && choixBoules.equals("oui")) branche = rouge+"O"; //boules
+                        else if (rand>=5 && rand<10 && choixBoules.equals("oui")) branche = bleu+"o";
 
-                    System.out.print(branche);
+                        if (i%3==0 && choixGuirlande.equalsIgnoreCase("oui")) branche = jaune+Character.toString(guirlande); //guirlande
+                    }
+                    if (j==0 && (!choixGuirlande.equalsIgnoreCase("oui") || i%3!=0)) branche = noir+"|"; //tronc
+
+                    System.out.print(branche+reset);
                     }
                 System.out.println();
                 
@@ -78,7 +100,7 @@ public class sapin {
                 System.out.println(" ".repeat(taille)+"|");
             }else {
                 for (int i = 0; i < taille/8+1; i++) {
-                    System.out.println(" ".repeat(taille-tronc/2)+"|".repeat(tronc+1));
+                    System.out.println(" ".repeat(taille-tronc/2)+noir+"|".repeat(tronc+1)+reset);
                 }
             }
 
