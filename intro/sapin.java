@@ -2,6 +2,7 @@ package intro;
 
 import java.util.Random;
 import java.util.Scanner;
+import java.util.HashMap;
 
 public class sapin {
     public static void main(String[] args) {
@@ -19,16 +20,32 @@ public class sapin {
             String choixBoules;
             String choixGuirlande;
             char guirlande='*';
+            boolean avantBoule=false;
+            int nbCouleurs;
+            String couleurDemandee;
+
 
             String reset = "\033[0m";
             String noir = "\033[0;30m";
-            String rouge = "\033[0;91m";
+            String rouge = "\033[1;91m";
             String vert = "\033[0;32m";
-            String jaune = "\033[0;93m";
+            String jaune = "\033[1;93m";
             String bleu = "\033[0;94m";
             String violet = "\033[0;95m";
             String cyan = "\033[0;96m";
             String blanc = "\033[0;97m";
+
+            HashMap<String, String> codesCouleurs = new HashMap<>();
+            codesCouleurs.put("noir","\033[0;30m");
+            codesCouleurs.put("rouge","\033[1;91m");
+            codesCouleurs.put("vert" , "\033[0;32m");
+            codesCouleurs.put("jaune" ,"\033[1;93m");
+            codesCouleurs.put("bleu", "\033[0;94m");
+            codesCouleurs.put("violet", "\033[0;95m");
+            codesCouleurs.put("cyan", "\033[0;96m");
+            codesCouleurs.put("blanc", "\033[0;97m");
+
+
             
             System.out.print("Quelle taille de sapin ? ");
             taille = sc.nextInt();
@@ -49,7 +66,27 @@ public class sapin {
             }
 
             System.out.print("Voulez vous des boules ? (oui/non) ");
-            choixBoules = sc.next();   
+            choixBoules = sc.next();
+            if (choixBoules.equalsIgnoreCase("oui")) {
+                System.out.print("Combien de couleurs de boules ? ");
+                nbCouleurs = sc.nextInt();
+                sc.nextLine();
+                String[] listeCouleurs = new String[nbCouleurs];
+                System.out.println("Quelles couleurs de boules ? ");
+
+                for (int i=0; i < nbCouleurs; i++){
+                    couleurDemandee = sc.nextLine();
+                    if (!couleurDemandee.matches("rouge|jaune|noir|blanc|bleu|cyan|violet|vert")){
+                        i--;
+                        System.out.println("Veuillez entrer une couleur valide (rouge/jaune/noir/blanc/bleu/cyan/violet/vert)");
+                    } else listeCouleurs[i] = couleurDemandee;
+                }
+
+
+                for (String num : listeCouleurs) {
+                    System.out.print(num + " ");
+                }
+            }
 
             System.out.print("Voulez vous une guirlande ? (oui/non) ");
             choixGuirlande = sc.next();
@@ -79,8 +116,11 @@ public class sapin {
                         if(j<0) branche = vert+"/"; //branches normales
                         else if(j>0) branche = vert+"\\";
                         
-                        if (rand<5 && choixBoules.equals("oui")) branche = rouge+"O"; //boules
-                        else if (rand>=5 && rand<10 && choixBoules.equals("oui")) branche = bleu+"o";
+                        if (choixBoules.equals("oui") && rand<10 &&  !avantBoule) { //boules
+                            if (rand<5) branche = rouge+"O";
+                            else if (rand>=5) branche = jaune+"o";
+                            avantBoule = true;
+                        } else avantBoule = false;
 
                         if (i%3==0 && choixGuirlande.equalsIgnoreCase("oui")) branche = jaune+Character.toString(guirlande); //guirlande
                     }
