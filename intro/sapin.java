@@ -6,7 +6,6 @@
 
 package intro;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.Scanner;
@@ -81,9 +80,9 @@ public class sapin {
                 if (taille==0) taille = rng.nextInt(2,41);
                 choixPointe = ouiNon[rng.nextInt(2)];
                 choixNeige = rng.nextInt(4);
-                quantiteNeige = rng.nextInt(4)*10;
+                quantiteNeige = rng.nextInt(36);
                 choixBoules = ouiNon[rng.nextInt(2)];
-                quantiteBoules = rng.nextInt(1,4)*4;
+                quantiteBoules = rng.nextInt(1,13);
                 nbCouleurs = rng.nextInt(1,5);
                 listeCouleursBoule = new String[nbCouleurs];
                 for (int i=0; i < nbCouleurs; i++){
@@ -98,7 +97,7 @@ public class sapin {
                 }
                 couleursGuirlande = new String[rng.nextInt(1,6)];
                 for (int i=0; i < couleursGuirlande.length; i++){
-                    couleursGuirlande[i] = toutesCouleursGuirlande[rng.nextInt(5)];
+                    couleursGuirlande[i] = toutesCouleursGuirlande[rng.nextInt(4)];
                 }
 
                 if (choixNeige == 1) neige = '*';
