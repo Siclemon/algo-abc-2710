@@ -1,7 +1,6 @@
 //espacement automatique entre les guirlandes
-//alternance custom guirlandes
+//alternance custom guirlandes couleurs
 //gras random branches
-//neige cimier
 //guirlande penchées
 
 
@@ -26,7 +25,7 @@ public class sapin {
             int quantiteNeige = 0;
             String choixBoules;
             String choixGuirlande;
-            char guirlande='*';
+            char aguirlande='*';
             boolean avantBoule=false;
             int nbCouleurs=0;
             String couleurDemandee;
@@ -39,6 +38,13 @@ public class sapin {
             char[] optionsGuirlande = {'x','X','*','W','O','A','<','>','@'};
             String[] listeCouleurs;
             String[] ouiNon = {"oui","non"};
+            int typeGuirlande = 0;
+            String[] guirlande;
+            int compteurGuirlande = 0;
+            int numGuirlande;
+            String couleurBranche;
+            String couleurGuirlande;
+            String[] toutesCouleursGuirlande = {"rouge","jaune","blanc","cyan","violet"};
 
 
             String reset = "\033[0m";
@@ -50,6 +56,7 @@ public class sapin {
             //String violet = "\033[0;95m";
             //String cyan = "\033[0;96m";
             //String blanc = "\033[0;97m";
+            String vertGras = "\033[1;32m";
 
             HashMap<String, String> codesCouleurs = new HashMap<>();
             codesCouleurs.put("noir","\033[1;30m");
@@ -63,7 +70,9 @@ public class sapin {
 
             System.out.print("Sapin aléatoire ? ");
             sapinRandom = sc.nextLine().toLowerCase();
+            //SAPIN ALÉATOIRE
             if (sapinRandom.matches(oui)){
+
                 System.out.print("Quelle taille de sapin ? (0=aléatoire) ");
                 taille = sc.nextInt();
                 if (taille==0) taille = rng.nextInt(2,41);
@@ -78,66 +87,90 @@ public class sapin {
                     listeCouleurs[i] = toutesLesCouleurs[rng.nextInt(8)];
                 }
                 choixGuirlande = ouiNon[rng.nextInt(2)];
-                guirlande = optionsGuirlande[rng.nextInt(9)];
+                aguirlande = optionsGuirlande[rng.nextInt(9)];
+
+                typeGuirlande = rng.nextInt(1,3);
+                guirlande = new String[typeGuirlande];
+                for (int i=0; i < typeGuirlande; i++){
+                    guirlande[i] = Character.toString(optionsGuirlande[rng.nextInt(9)]);
+                }
+
 
                 if (choixNeige == 1) neige = '*';
                 else if (choixNeige == 2) neige = ',';
                 else if (choixNeige == 3) neige = '.';
                 else neige = ' ';
 
+            } else { 
+            //SAPIN CUSTOM
 
-            } else { //custom
+                System.out.print("Quelle taille de sapin ? ");
+                taille = sc.nextInt();
+                
+                System.out.print("Voulez vous un cimier ? (oui/non) ");
+                choixPointe = sc.next();            
 
-            System.out.print("Quelle taille de sapin ? ");
-            taille = sc.nextInt();
-            
-            System.out.print("Voulez vous un cimier ? (oui/non) ");
-            choixPointe = sc.next();            
-
-            System.out.print("Quel type de neige ? (0/1/2/3) ");
-            choixNeige = sc.nextInt();
-            if (choixNeige == 1) neige = '*';
-            else if (choixNeige == 2) neige = ',';
-            else if (choixNeige == 3) neige = '.';
-            else neige = ' ';
-            if (neige !=' ') {
-                System.out.print("Quelle quantité de neige ? (0/1/2/3+) ");
-                quantiteNeige = sc.nextInt();
-                quantiteNeige *= 10;
-            }
-
-            System.out.print("Voulez vous des boules ? (oui/non) "); //choix des boules
-            choixBoules = sc.next().toLowerCase();
-            if (choixBoules.matches(oui)) {
-                System.out.print("Quelle quantité de boules ? (0/1/2/3+) ");
-                quantiteBoules = sc.nextInt();
-                quantiteBoules *= 4;
-                System.out.print("Combien de couleurs de boules ? ");
-                nbCouleurs = sc.nextInt();
-                sc.nextLine();
-            }
-
-            listeCouleurs = new String[nbCouleurs]; 
-            
-            if (nbCouleurs!=0){
-                System.out.println("Quelles couleurs de boules ? "); //choix des couleurs de boules
-                for (int i=0; i < nbCouleurs; i++){
-                    couleurDemandee = sc.nextLine().toLowerCase();
-                    if (!couleurDemandee.matches("rouge|jaune|noir|blanc|bleu|cyan|violet|vert")){
-                        i--;
-                        System.out.println("Veuillez entrer une couleur valide (rouge/jaune/noir/blanc/bleu/cyan/violet/vert)");
-                    } else listeCouleurs[i] = couleurDemandee;
+                System.out.print("Quel type de neige ? (0/1/2/3) ");
+                choixNeige = sc.nextInt();
+                if (choixNeige == 1) neige = '*';
+                else if (choixNeige == 2) neige = ',';
+                else if (choixNeige == 3) neige = '.';
+                else neige = ' ';
+                if (neige !=' ') {
+                    System.out.print("Quelle quantité de neige ? (0/1/2/3+) ");
+                    quantiteNeige = sc.nextInt();
+                    quantiteNeige *= 10;
                 }
-            }
-            
 
-            System.out.print("Voulez vous une guirlande ? (oui/non) "); //guirlande
-            choixGuirlande = sc.next().toLowerCase();
-            if (choixGuirlande.matches(oui)) {
-                System.out.print("Quel type de guirlande ? ");
-                guirlande = sc.next().charAt(0);
+                System.out.print("Voulez vous des boules ? (oui/non) "); //boules ou pas
+                choixBoules = sc.next().toLowerCase();
+                if (choixBoules.matches(oui)) {
+                    System.out.print("Quelle quantité de boules ? (0/1/2/3+) ");
+                    quantiteBoules = sc.nextInt();
+                    quantiteBoules *= 4;
+                    System.out.print("Combien de couleurs de boules ? ");
+                    nbCouleurs = sc.nextInt();
+                    sc.nextLine();
+                }
+
+                listeCouleurs = new String[nbCouleurs]; 
+                
+                if (nbCouleurs!=0){
+                    System.out.println("Quelles couleurs de boules ? "); //choix des couleurs de boules
+                    for (int i=0; i < nbCouleurs; i++){
+                        couleurDemandee = sc.nextLine().toLowerCase();
+                        if (!couleurDemandee.matches("rouge|jaune|noir|blanc|bleu|cyan|violet|vert")){
+                            i--;
+                            System.out.println("Veuillez entrer une couleur valide (rouge/jaune/noir/blanc/bleu/cyan/violet/vert)");
+                        } else listeCouleurs[i] = couleurDemandee;
+                    }
+                }
+                
+
+                System.out.print("Voulez vous une guirlande ? (oui/non) "); //guirlande
+                choixGuirlande = sc.next().toLowerCase();
+
+                if (choixGuirlande.matches(oui)) { //nombres de caractères
+                    System.out.print("Quel type de guirlande ? (1=simple, 2+=complexe) ");
+                    typeGuirlande = sc.nextInt();
+                    sc.nextLine();
+                }
+                
+                    guirlande = new String[typeGuirlande];
+
+                if (typeGuirlande!=0){ //quels caractères pour la guirlande
+                    for (int i=0; i<typeGuirlande; i++){
+                        System.out.print("Quel visuel de guirlande ? ");
+                        guirlande[i] = sc.nextLine();
+                    }
+                }
+
+                
+
+
+
+
             }
-        }
 
 
             //POINTE DU SAPIN
@@ -167,8 +200,10 @@ public class sapin {
                     branche = " ";
                     if (rand<quantiteNeige) branche = Character.toString(neige); //neige
                     if (Math.abs(j)<=i) {
-                        if(j<0) branche = vert+"/"; //branches normales
-                        else if(j>0) branche = vert+"\\";
+                        if (rand<50) couleurBranche = vert;
+                        else couleurBranche = vertGras;
+                        if(j<0) branche = couleurBranche+"/"; //branches normales
+                        else if(j>0) branche = couleurBranche+"\\";
                         
                         if (choixBoules.matches(oui) && rand<2*quantiteBoules &&  !avantBoule && nbCouleurs>0) { //boules
                             couleurRandom = rng.nextInt(nbCouleurs);
@@ -178,14 +213,19 @@ public class sapin {
                             avantBoule = true;
                         } else avantBoule = false;
 
-                        if (i%3==0 && choixGuirlande.matches(oui)) branche = jaune+Character.toString(guirlande); //guirlande
+                        if (i%3==0 && choixGuirlande.matches(oui)){
+                            numGuirlande = compteurGuirlande%typeGuirlande;
+                            branche = jaune+guirlande[numGuirlande];
+                        }
+
+
                     }
                     if (j==0 && (!choixGuirlande.matches(oui) || i%3!=0)) branche = noir+"|"; //tronc
 
                     System.out.print(branche+reset);
                     }
                 System.out.println();
-                
+                if (i%3==0 && choixGuirlande.matches(oui)) compteurGuirlande++;
             }
             
             
