@@ -1,6 +1,8 @@
-//randomizing
 //espacement automatique entre les guirlandes
 //alternance custom guirlandes
+//gras random branches
+//neige cimier
+//guirlande penchées
 
 
 package intro;
@@ -32,30 +34,60 @@ public class sapin {
             String couleurBoule="\033[0;97m";
             int quantiteBoules=0;
             String oui="oui|o|yes|y|1";
+            String sapinRandom;
+            String[] toutesLesCouleurs = {"rouge","jaune","noir","blanc","bleu","cyan","violet","vert"};
+            char[] optionsGuirlande = {'x','X','*','W','O','A','<','>','@'};
+            String[] listeCouleurs;
+            String[] ouiNon = {"oui","non"};
 
 
             String reset = "\033[0m";
             String noir = "\033[0;30m";
-            String rouge = "\033[1;91m";
+            //String rouge = "\033[1;91m";
             String vert = "\033[0;32m";
             String jaune = "\033[1;93m";
-            String bleu = "\033[0;94m";
-            String violet = "\033[0;95m";
-            String cyan = "\033[0;96m";
-            String blanc = "\033[0;97m";
+            //String bleu = "\033[0;94m";
+            //String violet = "\033[0;95m";
+            //String cyan = "\033[0;96m";
+            //String blanc = "\033[0;97m";
 
             HashMap<String, String> codesCouleurs = new HashMap<>();
-            codesCouleurs.put("noir","\033[0;30m");
+            codesCouleurs.put("noir","\033[1;30m");
             codesCouleurs.put("rouge","\033[1;91m");
-            codesCouleurs.put("vert" , "\033[0;32m");
+            codesCouleurs.put("vert" , "\033[1;32m");
             codesCouleurs.put("jaune" ,"\033[1;93m");
-            codesCouleurs.put("bleu", "\033[0;94m");
-            codesCouleurs.put("violet", "\033[0;95m");
-            codesCouleurs.put("cyan", "\033[0;96m");
+            codesCouleurs.put("bleu", "\033[1;94m");
+            codesCouleurs.put("violet", "\033[1;95m");
+            codesCouleurs.put("cyan", "\033[1;96m");
             codesCouleurs.put("blanc", "\033[0;97m");
 
+            System.out.print("Sapin aléatoire ? ");
+            sapinRandom = sc.nextLine().toLowerCase();
+            if (sapinRandom.matches(oui)){
+                System.out.print("Quelle taille de sapin ? (0=aléatoire) ");
+                taille = sc.nextInt();
+                if (taille==0) taille = rng.nextInt(2,41);
+                choixPointe = ouiNon[rng.nextInt(2)];
+                choixNeige = rng.nextInt(4);
+                quantiteNeige = rng.nextInt(4)*10;
+                choixBoules = ouiNon[rng.nextInt(2)];
+                quantiteBoules = rng.nextInt(1,4)*4;
+                nbCouleurs = rng.nextInt(1,5);
+                listeCouleurs = new String[nbCouleurs];
+                for (int i=0; i < nbCouleurs; i++){
+                    listeCouleurs[i] = toutesLesCouleurs[rng.nextInt(8)];
+                }
+                choixGuirlande = ouiNon[rng.nextInt(2)];
+                guirlande = optionsGuirlande[rng.nextInt(9)];
 
-            
+                if (choixNeige == 1) neige = '*';
+                else if (choixNeige == 2) neige = ',';
+                else if (choixNeige == 3) neige = '.';
+                else neige = ' ';
+
+
+            } else { //custom
+
             System.out.print("Quelle taille de sapin ? ");
             taille = sc.nextInt();
             
@@ -85,7 +117,7 @@ public class sapin {
                 sc.nextLine();
             }
 
-            String[] listeCouleurs = new String[nbCouleurs]; 
+            listeCouleurs = new String[nbCouleurs]; 
             
             if (nbCouleurs!=0){
                 System.out.println("Quelles couleurs de boules ? "); //choix des couleurs de boules
@@ -105,21 +137,32 @@ public class sapin {
                 System.out.print("Quel type de guirlande ? ");
                 guirlande = sc.next().charAt(0);
             }
+        }
 
 
-            //pointe du sapin
+            //POINTE DU SAPIN
+            //détermination du cimier
             if(choixPointe.matches(oui)) {
                 if(taille <= 5) pointe = jaune+"*";
                 else if(5 < taille && taille <= 11) pointe = jaune+"x";
                 else if(taille > 11) pointe = jaune+"X";
             } else pointe = vert+"^";
-            System.out.println(" ".repeat(taille) + pointe);
+            //afichage de la première ligne
+            for (int i = -taille; i <= taille; i++) {
+                    rand = rng.nextInt(100);
+
+                    branche = " ";
+                    if (rand<quantiteNeige) branche = Character.toString(neige); //neige
+                    if (i==0) branche = pointe; //cimier
+                    System.out.print(branche+reset);
+            }
+            System.out.println();
+
             
-            
-            //branchage
+            //BRANCHAGE
             for (int i = 1; i <= taille; i++) {
                 for (int j = -taille; j <= taille; j++) {
-                    rand = rng.nextInt(99);
+                    rand = rng.nextInt(100);
 
                     branche = " ";
                     if (rand<quantiteNeige) branche = Character.toString(neige); //neige
@@ -127,11 +170,11 @@ public class sapin {
                         if(j<0) branche = vert+"/"; //branches normales
                         else if(j>0) branche = vert+"\\";
                         
-                        if (choixBoules.matches(oui) && (rand<quantiteBoules || rand>99-quantiteBoules) &&  !avantBoule) { //boules
+                        if (choixBoules.matches(oui) && rand<2*quantiteBoules &&  !avantBoule && nbCouleurs>0) { //boules
                             couleurRandom = rng.nextInt(nbCouleurs);
                             couleurBoule = codesCouleurs.get(listeCouleurs[couleurRandom]);//couleur aléatoire
                             if (rand<quantiteBoules) branche = couleurBoule+"O";
-                            else if (rand>99-quantiteBoules) branche = couleurBoule+"o";
+                            else if (rand<2*quantiteBoules) branche = couleurBoule+"o";
                             avantBoule = true;
                         } else avantBoule = false;
 
@@ -145,18 +188,17 @@ public class sapin {
                 
             }
             
+            
+            //TRONC
             tronc = taille/4;
             tronc = tronc % 2 + tronc;
-            
-            //tronc
             if (taille < 5) {
-                System.out.println(" ".repeat(taille)+"|");
+                System.out.println(" ".repeat(taille)+noir+"|"+reset);
             }else {
                 for (int i = 0; i < taille/8+1; i++) {
                     System.out.println(" ".repeat(taille-tronc/2)+noir+"|".repeat(tronc+1)+reset);
                 }
             }
-
 
             sc.close();
 }}
