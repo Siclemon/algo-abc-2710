@@ -1,10 +1,19 @@
-//espacement automatique entre les guirlandes
-//alternance custom guirlandes couleurs
-//gras random branches
 //guirlande penchées
+//ciel
+//côtés
+//cadeaux
+//protection couleurs guirlande
+//guirlande custome plusieurs couleurs
+//guirlande connectée
+//guirlande clignotante
+//neige en bas
 
 
-package intro;
+//package intro;
+/* retiré car donnait:
+
+Error: Could not find or load main class sapin
+Caused by: java.lang.NoClassDefFoundError: sapin (wrong name: intro/sapin) */
 
 import java.util.HashMap;
 import java.util.Random;
@@ -50,15 +59,15 @@ public class sapin {
 
 
             String reset = "\033[0m";
-            String noir = "\033[0;30m";
+            String noir = "\033[1;30m";
             //String rouge = "\033[1;91m";
-            String vert = "\033[0;32m";
+            String vert = "\033[9;2;32m";
             String jaune = "\033[1;93m";
             //String bleu = "\033[0;94m";
             //String violet = "\033[0;95m";
             //String cyan = "\033[0;96m";
-            //String blanc = "\033[0;97m";
-            String vertGras = "\033[1;32m";
+            String blanc = "\033[1;97m";
+            String vertGras = "\033[1;9;2;32m";
 
             HashMap<String, String> codesCouleurs = new HashMap<>();
             codesCouleurs.put("noir","\033[1;30m");
@@ -68,7 +77,12 @@ public class sapin {
             codesCouleurs.put("bleu", "\033[1;94m");
             codesCouleurs.put("violet", "\033[1;95m");
             codesCouleurs.put("cyan", "\033[1;96m");
-            codesCouleurs.put("blanc", "\033[0;97m");
+            codesCouleurs.put("blanc", "\033[1;97m");
+            codesCouleurs.put("rougeBarre","\033[1;9;91m");
+            codesCouleurs.put("jauneBarre" ,"\033[1;9;93m");
+            codesCouleurs.put("violetBarre", "\033[1;9;95m");
+            codesCouleurs.put("cyanBarre", "\033[1;9;96m");
+            codesCouleurs.put("blancBarre", "\033[1;9;97m");
 
             System.out.print("Sapin aléatoire ? ");
             sapinRandom = sc.nextLine().toLowerCase();
@@ -208,7 +222,7 @@ public class sapin {
                     rand = rng.nextInt(100);
 
                     branche = " ";
-                    if (rand<quantiteNeige) branche = Character.toString(neige); //neige
+                    if (rand<quantiteNeige) branche = blanc + Character.toString(neige); //neige
                     if (Math.abs(j)<=i) {
                         if (rand<50) couleurBranche = vert;
                         else couleurBranche = vertGras;
@@ -227,7 +241,7 @@ public class sapin {
                             numCouleurGuirlande = ((j+taille+seedCouleurGuirlande) % (repetitionCouleurGuirlande*couleursGuirlande.length)) / repetitionCouleurGuirlande;
 
                             numGuirlande = compteurGuirlande%typeGuirlande;
-                            branche = codesCouleurs.get(couleursGuirlande[numCouleurGuirlande])+guirlande[numGuirlande];
+                            branche = codesCouleurs.get(couleursGuirlande[numCouleurGuirlande]+"Barre")+guirlande[numGuirlande];
                         }
 
 
