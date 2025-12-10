@@ -56,6 +56,10 @@ public class sapin {
             int numCouleurGuirlande;
             int repetitionCouleurGuirlande = 2;
             int seedCouleurGuirlande;
+            String choixLumiere="0";
+            int quantiteLumiere=0;
+            String lumiere = "°";
+            boolean avantLumiere=false;
 
 
             String reset = "\033[0m";
@@ -83,6 +87,8 @@ public class sapin {
             codesCouleurs.put("violetBarre", "\033[1;9;95m");
             codesCouleurs.put("cyanBarre", "\033[1;9;96m");
             codesCouleurs.put("blancBarre", "\033[1;9;97m");
+            codesCouleurs.put("jauneClignotant" ,"\033[1;5;93m");
+            codesCouleurs.put("blanclignotant" ,"\033[1;5;97m");
 
             System.out.print("Sapin aléatoire ? ");
             sapinRandom = sc.nextLine().toLowerCase();
@@ -113,6 +119,11 @@ public class sapin {
                 for (int i=0; i < couleursGuirlande.length; i++){
                     couleursGuirlande[i] = toutesCouleursGuirlande[rng.nextInt(4)];
                 }
+
+                choixLumiere = ouiNon[rng.nextInt(2)];
+                quantiteLumiere = rng.nextInt(1,9);
+
+
 
                 if (choixNeige == 1) neige = '*';
                 else if (choixNeige == 2) neige = ',';
@@ -236,6 +247,13 @@ public class sapin {
                             else if (rand<2*quantiteBoules) branche = couleurBoule+"o";
                             avantBoule = true;
                         } else avantBoule = false;
+
+                        if (choixLumiere.matches(oui) && rand>99-quantiteLumiere &&  !avantLumiere) { //lumières
+                            //couleurRandom = rng.nextInt(nbCouleurs);
+                            //couleurBoule = codesCouleurs.get(listeCouleursBoule[couleurRandom]);//couleur aléatoire
+                            branche = codesCouleurs.get("jauneClignotant")+lumiere;
+                            avantLumiere = true;
+                        } else avantLumiere = false;
 
                         if (i%(2+taille/6)==0 && choixGuirlande.matches(oui)){
                             numCouleurGuirlande = ((j+taille+seedCouleurGuirlande) % (repetitionCouleurGuirlande*couleursGuirlande.length)) / repetitionCouleurGuirlande;
