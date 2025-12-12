@@ -374,17 +374,15 @@ public class sapin {
             for (int i=0;i<taille/6+2;i++){
                 for (int j=-taille-10;j<taille+10;j++){
 
-                    if (i==0) couleurSol="\033[2;7;4;37m";
-                    else couleurSol ="\033[2;4;8;90;7m";
+                    if (i==0) couleurSol="\033[2;47;97m";
+                    else couleurSol ="\033[100;2;90;7m";
 
-                    System.out.print(couleurSol+" "+"\033[0m");
+                    System.out.print(couleurSol+"/"+"\033[0m");
                 }
                 System.out.println();
             }
 
-
-
-
+//\\/\\//\/\\\\//\\ /\/\/\/\/\/\/\/\/\/\/\
 
             sc.close();
 }}
