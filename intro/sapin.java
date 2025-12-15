@@ -406,7 +406,7 @@ public class sapin {
                 }
                 System.out.println();
             }
-            System.out.println(taille+"    "+quantiteNeigeSol+"   "+couleursSol.length);
+            // System.out.println(taille+"    "+quantiteNeigeSol+"   "+couleursSol.length);
 
 
             // System.out.println("\033[92;7;2;42m"+"aAaAaAaA////////"+reset);     //pas neige                                     ext
