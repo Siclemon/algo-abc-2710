@@ -12,9 +12,7 @@ public class exercices26 {
 
         System.out.println();
         
-        do {
-            i++;
-        } while (nombre%i!=0 && nombre!=i);
+        for (i=2; nombre%i!=0 && i<nombre; i++);
 
         if (i==nombre) System.out.println(nombre+" est un nombre premier !");
         else System.out.println(nombre+" n'est pas un nombre premier :(");
