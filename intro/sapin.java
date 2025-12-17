@@ -5,7 +5,7 @@
 //neige en bas
 
 
-//package intro;
+package intro;
 /* retiré car donnait:
 
 Error: Could not find or load main class sapin
