@@ -1,7 +1,7 @@
 package exercices;
 import java.util.Scanner;
 
-public class exercices25 {
+public class exercice25 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int nombre;
