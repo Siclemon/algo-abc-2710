@@ -1,4 +1,5 @@
 package exercices;
+import java.util.Scanner;
 
 public class exercice110 {
     public static void main(String[] args) {
@@ -7,6 +8,10 @@ public class exercice110 {
         int somme;
         int n=4;
         int[] liste;
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Combien de nombres parfaits ?");
+        n = sc.nextInt();
 
         liste = new int[n];
 
@@ -16,7 +21,7 @@ public class exercice110 {
             somme = 0;
 
             //somme des diviseurs
-            for (int i=1; i<nombre; i++) {
+            for (int i=1; i<=nombre/2; i++) {
                 if (nombre%i==0) somme += i;
             }
 
@@ -27,9 +32,11 @@ public class exercice110 {
             }
         }
         System.out.println();
-        for (int i=0; i<n; i++)
-            System.out.println("\033[34m"+liste[i]+ "\033[0m est un nombre parfait.");
+        for (int el : liste)
+            System.out.println("\033[34m"+el+ "\033[0m est un nombre parfait.");
         System.out.println();
+
+        sc.close();
 
     }
     

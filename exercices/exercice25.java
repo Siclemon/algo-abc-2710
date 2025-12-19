@@ -10,7 +10,7 @@ public class exercice25 {
         nombre = sc.nextInt();
 
         System.out.println();
-        for (int i=2; i<nombre; i++){
+        for (int i=2; i<=nombre/2; i++){
 
             if (nombre%i==0) System.out.println(i);
 
