@@ -5,7 +5,7 @@
 //neige en bas
 
 
-package intro;
+//package intro;
 /* retiré car donnait:
 
 Error: Could not find or load main class sapin
@@ -269,7 +269,7 @@ public class sapin {
 
 
 
-            largeur = taille + taille/4+2;
+            largeur = taille + taille/4 + 2;
 
 
             //dessus
