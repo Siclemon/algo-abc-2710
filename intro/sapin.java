@@ -5,12 +5,13 @@
 //neige en bas
 
 
-package intro;
+//package intro;
 /* retiré car donnait:
 
 Error: Could not find or load main class sapin
 Caused by: java.lang.NoClassDefFoundError: sapin (wrong name: intro/sapin) */
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
@@ -413,9 +414,98 @@ public class sapin {
                 }
                 System.out.println();
             }
-            //non System.out.println("X".repeat(((9*taille)/4-1)/2)+"O".repeat(taille/4+5));
-            System.out.println("X".repeat(taille/4+taille-(taille/4+1)/2)+"O".repeat(taille/4+5));
-            System.out.println("O".repeat(taille/4+2+2+rng.nextInt(taille/10))+"X".repeat((taille/4+taille-(taille/4+1)/2)-(taille/4+2+2+rng.nextInt(taille/10)))+"O".repeat(taille/4+3));
+            
+            // System.out.println("X".repeat(taille/4+taille-(taille/4+1)/2)+"O".repeat(taille/4+5));
+            // System.out.println("O".repeat(taille/4+2+2+rng.nextInt(taille/10))+"X".repeat((taille/4+taille-(taille/4+1)/2)-(taille/4+2+2+rng.nextInt(taille/10)))+"O".repeat(taille/4+3));
+
+
+
+            String[][][] cadeaux = {{{" ","_","_","O","_","_"," "},{"|"," "," ","|"," "," ","|"},{"|","=","=","|","=","=","|"},{"|","_","_","|","_","_","|"}},{{" ","_","_","_","_","_","_","_","o","O","_","_","_","_","_","_","_"},{"|"," "," "," "," "," "," "," ","|","|"," "," "," "," "," "," "," ","|"},{"|","~","~","~","~","~","~","~","|","|","~","~","~","~","~","~","~","|"},{"|","_","_","_","_","_","_","_","|","|","_","_","_","_","_","_","_","|"}},{{" "," "," ","_","c","O","_"," "," "},{" "," ","|","_","_","_","_","|"," "},{"_","_","|","_","_","_","_","|","_"},{"|"," "," "," ","|"," "," "," ","|"},{"|"," "," "," ","|"," "," "," ","|"},{"|","_","_","_","|","_","_","_","|"}}};
+            String[][][] encodageCouleurs  = {{{"0","1","1","2","1","1","0"},{"1","0","0","2","0","0","1"},{"1","2","2","2","2","2","1"},{"1","1","1","2","1","1","1"}},{{"0","1","1","1","1","1","1","1","2","2","1","1","1","1","1","1","1"},{"1","0","0","0","0","0","0","0","2","2","0","0","0","0","0","0","0","1"},{"1","2","2","2","2","2","2","2","2","2","2","2","2","2","2","2","2","1"},{"1","1","1","1","1","1","1","1","2","2","1","1","1","1","1","1","1","1"}},{{"0","0","0","1","3","3","1","0","0"},{"0","0","1","3","3","3","3","1","0"},{"2","2","1","2","2","2","2","1","2"},{"2","0","0","0","3","0","0","0","2"},{"2","0","0","0","3","0","0","0","2"},{"2","2","2","2","3","2","2","2","2"}}};;
+            int[] nbCouleursCadeaux = {2,2,3};
+            ArrayList<Integer> cadeauxBonneHauteur = new ArrayList<>();
+            ArrayList<Integer> cadeauxBonneLargeur = new ArrayList<>();
+            int largeurMax=0;
+            String[][] TRONC; //le tableau à afficher
+            ArrayList<String> couleursDuCadeau = new ArrayList<String>(); //liste des nom des couleurs pour le cadeau actuel
+            boolean dejaLa; //pour éviter les répétitions de couleurs
+            int espaceDispo; //cb de place pour le cadeau ?
+            int xA; //point gauche du cadeau
+            int xB; //limite droite possible du cadeau
+            int decalageCadeau;
+            int quelCadeau;
+
+            TRONC = new String[taille/8+1][largeur*2+1];
+            for (String[] lignes : TRONC) Arrays.fill(lignes, " ");
+
+            decalageCadeau = rng.nextInt(1,taille/12+2);
+            xA = taille/4 + 2 + decalageCadeau;
+            xB = taille + taille/4 - (taille/4+1)/2;
+            espaceDispo = xB-xA;
+
+            //filtrage des cadeaux en fonction de leurs hauteurs
+            for (int i=0; i<cadeaux.length; i++) {
+                if (cadeaux[i].length<taille/8+1) cadeauxBonneHauteur.add(i);
+            }
+
+
+            System.out.println(cadeauxBonneHauteur);/////
+
+
+            while (espaceDispo>5) {
+                decalageCadeau = rng.nextInt(1,taille/12+2);
+                cadeauxBonneLargeur.clear();
+
+                //filtrage des cadeaux en fonction de leurs largeurs
+                for (int jsp : cadeauxBonneHauteur){
+                    largeurMax = 0;
+                    for (int i=0; i<cadeaux[jsp].length;i++){
+                        if (cadeaux[jsp][i].length>largeurMax) largeurMax = cadeaux[jsp][i].length;
+                    }
+                    if (largeurMax<=espaceDispo) cadeauxBonneLargeur.add(jsp);
+                }
+
+                quelCadeau = rng.nextInt(cadeauxBonneLargeur.size());
+
+                for (int y=0; y<cadeaux[cadeauxBonneLargeur.get(quelCadeau)].length; y++) {
+                    for (int x=0; x<cadeaux[cadeauxBonneLargeur.get(quelCadeau)][y].length; x++) {
+                        TRONC[taille/8+1-cadeaux[cadeauxBonneLargeur.get(quelCadeau)].length+y][xA+x] = cadeaux[cadeauxBonneLargeur.get(quelCadeau)][y][x];
+
+                    }
+                }
+                xA += cadeaux[cadeauxBonneLargeur.get(quelCadeau)][1].length + decalageCadeau;
+                espaceDispo = xB - xA;
+
+                cadeauxBonneHauteur.remove(quelCadeau);
+
+            }
+
+            for (String[] ligne : TRONC){
+                for (String car : ligne){
+                    System.out.print(car);
+                }
+                System.out.println();
+            }
+
+
+
+
+
+
+            for (int y=0;y<TRONC.length;y++){
+                for (int x=0; x<TRONC[y].length;x++){
+                    if (x>xA && x<xB) System.out.print("O");
+                    else System.out.print("X");
+                }
+                System.out.println();
+            }
+
+
+
+
+
+
+
 
             sc.close();
 }}
