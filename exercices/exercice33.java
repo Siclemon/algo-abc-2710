@@ -17,7 +17,7 @@ public class exercice33 {
             }
             if (tableau[i]>n) break;
         }
-
+        
         System.out.println();
         if(trouvé) System.out.println(n+" est présent en position "+i);
         else System.out.println("404 Not Found");

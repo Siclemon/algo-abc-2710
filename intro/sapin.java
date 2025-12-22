@@ -5,7 +5,7 @@
 //neige en bas
 
 
-//package intro;
+package intro;
 /* retiré car donnait:
 
 Error: Could not find or load main class sapin
@@ -39,7 +39,7 @@ public class sapin {
             int quantiteBoules=0;
             String oui="oui|o|yes|y|1";
             String sapinRandom;
-            String[] toutesLesCouleurs = {"rouge","jaune","noir","blanc","bleu","cyan","violet","vert"};
+            String[] toutesLesCouleurs = {"rouge","jaune","blanc","bleu","cyan","violet","vert","noir"};
             char[] optionsGuirlande = {'x','X','*','W','O','A','<','>','Z'};
             String[] listeCouleursBoule;
             String[] ouiNon = {"oui","non"};
@@ -75,6 +75,8 @@ public class sapin {
             String[] solNeige4 = {"\033[100;2;90m","\033[37;100m","\033[47;90m","\033[32;2;47m","\033[37;7;102m"};
             String[] solNeige5 = {"\033[100;2;90m","\033[37;100m","\033[47;90m","\033[37;7;107m","\033[107;37m"};
             String[] solNeige6 = {"\033[100;2;90m","\033[37;100m","\033[47;90m","\033[37;7;107m","\033[107;37m","\033[107;97m"};
+            int inclinaisonGuirlande;
+            boolean ligneAGuirlande = false;
 
 
             String reset = "\033[0m";
@@ -122,11 +124,11 @@ public class sapin {
                 choixNeige = rng.nextInt(4);
                 quantiteNeige = rng.nextInt(1,36);
                 choixBoules = ouiNon[rng.nextInt(2)];
-                quantiteBoules = rng.nextInt(1,10);
+                quantiteBoules = rng.nextInt(2,8);
                 nbCouleurs = rng.nextInt(1,5);
                 listeCouleursBoule = new String[nbCouleurs];
                 for (int i=0; i < nbCouleurs; i++){
-                    listeCouleursBoule[i] = toutesLesCouleurs[rng.nextInt(8)];
+                    listeCouleursBoule[i] = toutesLesCouleurs[rng.nextInt(7)];
                 }
                 choixGuirlande = ouiNon[rng.nextInt(2)];
 
@@ -141,7 +143,7 @@ public class sapin {
                 }
 
                 choixLumiere = Integer.toString(rng.nextInt(3));
-                quantiteLumiere = rng.nextInt(3,9);
+                quantiteLumiere = rng.nextInt(3,8);
                 if(choixLumiere.equals("2")) nbCouleursLumiere = rng.nextInt(4,8);
                 couleursLumiere = new String[nbCouleursLumiere];
                 for (int i=0; i < couleursLumiere.length; i++){
@@ -183,7 +185,7 @@ public class sapin {
                 if (choixBoules.matches(oui)) {
                     System.out.print("Quelle quantité de boules ? (0/1/2/3+) ");
                     quantiteBoules = sc.nextInt();
-                    quantiteBoules *= 4;
+                    quantiteBoules *= 3;
                     System.out.print("Combien de couleurs de boules ? ");
                     nbCouleurs = sc.nextInt();
                     sc.nextLine();
@@ -241,7 +243,7 @@ public class sapin {
                 if (choixLumiere.matches(oui)) {
                     System.out.print("Quelle quantité de lumière ? (0/1/2/3+) ");
                     quantiteLumiere = sc.nextInt();
-                    quantiteLumiere *= 4;
+                    quantiteLumiere *= 3;
                     sc.nextLine();
                     System.out.print("Quel visuel ? (0=° / 1=*)");
                     choixVisuLum = sc.nextLine();
@@ -306,11 +308,15 @@ public class sapin {
             System.out.println();
 
             repetitionCouleurGuirlande += taille/9;
+            inclinaisonGuirlande = rng.nextInt(6,16);
+            if (rng.nextBoolean()) inclinaisonGuirlande *= -1;
 
             
             //BRANCHAGE
             for (int i = 1; i <= taille; i++) {
-                if (choixGuirlande.matches(oui)) seedCouleurGuirlande = rng.nextInt(couleursGuirlande.length*repetitionCouleurGuirlande);
+                if (choixGuirlande.matches(oui) && !ligneAGuirlande) seedCouleurGuirlande = rng.nextInt(couleursGuirlande.length*repetitionCouleurGuirlande);
+                ligneAGuirlande = false;
+                //if (choixGuirlande.matches(oui)) seedCouleurGuirlande = rng.nextInt(couleursGuirlande.length*repetitionCouleurGuirlande);
                 for (int j = -largeur; j <= largeur; j++) {
                     rand = rng.nextInt(100);
 
@@ -337,16 +343,17 @@ public class sapin {
                             avantLumiere = true;
                         } else avantLumiere = false;
 
-                        if (i%(2+taille/6)==0 && choixGuirlande.matches(oui)){
+                        if ((i+(j+taille+9)/inclinaisonGuirlande)%(2+taille/6)==0 && choixGuirlande.matches(oui)){
                             numCouleurGuirlande = ((j+taille+seedCouleurGuirlande) % (repetitionCouleurGuirlande*couleursGuirlande.length)) / repetitionCouleurGuirlande;
 
                             numGuirlande = compteurGuirlande%typeGuirlande;
                             branche = codesCouleurs.get(couleursGuirlande[numCouleurGuirlande]+"Barre")+guirlande[numGuirlande];
+                            ligneAGuirlande = true;
                         }
 
 
                     }
-                    if (j==0 && (!choixGuirlande.matches(oui) || i%(2+taille/6)!=0)) branche = vert+"|"; //tronc
+                    if (j==0 && (!choixGuirlande.matches(oui) || (i+(j+taille+9)/inclinaisonGuirlande)%(2+taille/6)!=0)) branche = vert+"|"; //tronc
 
                     System.out.print(branche+reset);
                     }
@@ -406,24 +413,9 @@ public class sapin {
                 }
                 System.out.println();
             }
-            // System.out.println(taille+"    "+quantiteNeigeSol+"   "+couleursSol.length);
-
-
-            // System.out.println("\033[92;7;2;42m"+"aAaAaAaA////////"+reset);     //pas neige                                     ext
-            // System.out.println("\033[32;7;2;42m"+"aAaAaAaA////////"+reset);     //pas neige ss + un peu neige ss + neige ss             sous
-            // System.out.println("\033[32;7;2;47m"+"aAaAaAaA////////"+reset);     //un peu neige                                  ext
-            // System.out.println("\033[32;7;2;100m"+"aAaAaAaA////////"+reset);    //un peu neige trans + neige trans
-            // System.out.println("\033[37;7;102m"+"aAaAaAaA////////"+reset);      //neige                                         ext
-            // System.out.println("\033[32;2;47m"+"aAaAaAaA////////"+reset);       //neige trans
-            // System.out.println("\033[47;90m"+"aAaAaAaA////////"+reset);         //bcp/max neige trans
-            // System.out.println("\033[37;7;107m"+"aAaAaAaA////////"+reset);      //bcp/max neige trans
-            // System.out.println("\033[107;37m"+"aAaAaAaA////////"+reset);        //bcp neige + max neige trans                   ext
-            // System.out.println("\033[107;97m"+"aAaAaAaA////////"+reset);        //max neige                                     ext
-            // System.out.println("\033[37;100m"+"aAaAaAaA////////"+reset);        //bcp/max neige trans
-            // System.out.println("\033[100;2;90m"+"aAaAaAaA////////"+reset);      //bcp/max neige ss                                      sous
-            // //System.out.println("\033[90;7;37;2m"+"aAaAaAaA////////"+reset);     //non
-            // System.out.println("\033[100;2;90;7m"+"aAaAaAaA////////"+reset);    //sous
-
+            //non System.out.println("X".repeat(((9*taille)/4-1)/2)+"O".repeat(taille/4+5));
+            System.out.println("X".repeat(taille/4+taille-(taille/4+1)/2)+"O".repeat(taille/4+5));
+            System.out.println("O".repeat(taille/4+2+2+rng.nextInt(taille/10))+"X".repeat((taille/4+taille-(taille/4+1)/2)-(taille/4+2+2+rng.nextInt(taille/10)))+"O".repeat(taille/4+3));
 
             sc.close();
 }}
