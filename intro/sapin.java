@@ -112,6 +112,7 @@ public class sapin {
             codesCouleurs.put("bleuClignotant", "\033[1;5;94m");
             codesCouleurs.put("violetClignotant", "\033[1;5;95m");
             codesCouleurs.put("cyanClignotant", "\033[1;5;96m");
+            codesCouleurs.put("","");
 
             System.out.print("\nSapin aléatoire ? ");
             sapinRandom = sc.nextLine().toLowerCase();
@@ -310,7 +311,7 @@ public class sapin {
 
             repetitionCouleurGuirlande += taille/9;
             inclinaisonGuirlande = rng.nextInt(6,16);
-            if (rng.nextBoolean()) inclinaisonGuirlande *= -1;
+            if (rng.nextBoolean()) inclinaisonGuirlande *= -1; //quel sens ?
 
             
             //BRANCHAGE
@@ -363,25 +364,132 @@ public class sapin {
             }
             
             
+
             //TRONC
-            tronc = taille/4;
-            tronc = tronc % 2 + tronc;
+            String[][][] cadeaux = {{{" ","_","_","_","_","_","_","_","_","_","_"," "},{"|"," "," ","/"," "," "," ","/"," "," "," ","|"},{"|"," ","/"," "," "," ","/"," "," "," ","/","|"},{"|","/","_","_","_","/","_","_","_","/","_","|"}},{{" ","_","_","_","_","_"},{"|"," ","o","x","O"," ","|"},{"|","_","_","_","_","_","|"}},{{" ","_","_","_","_","_","_","_"},{"|"," "," ","\\"," ","/"," "," ","|"},{"|"," "," "," ","X"," "," "," ","|"},{"|","_","_","/","_","\\","_","_","|"}},{{"_","O","o","_"},{"|"," "," ","|"},{"|","_","_","|"}},{{" ","_","_","V","_","_"},{"{"," "," ","|"," "," ","}"},{"{","_","_","|","_","_","}"}},{{" ","_","_","_","w","_","_","_"},{"[","_","_","_","|","_","_","_","]"}},{{" ","_","v","_"},{"(","_","_","_",")"}},{{" ","_","+","_"},{"|","_","|","_","|"}},{{" ","+"},{"(","|",")"}},{{"(","+",")"}},{{"[","-","]"}},{{"[","+","]"}},{{" ","_","_","_","_","_","_","_","_"},{"|","_","_","_","_","_","_","_","_","|","o"},{"|","_","_","_","_","_","_","_","_","|","°"}},{{" "," ","_","ç","_"},{" "," ","|","|","|"},{" "," ","|","|","|"},{" ","/"," ","|"," ","\\"},{"|"," "," ","|"," "," ","|"},{"|","_","_","|","_","_","|"},{"|"," "," ","|"," "," ","|"},{"|"," "," ","|"," "," ","|"},{"|","_","_","|","_","_","|"}},{{" "," ","_","_","}","+","{","_","_"},{" ","/"," "," "," ","|"," "," "," ","\\"},{"|","_","_","_","_","|","_","_","_","_","|"},{"|"," "," "," "," ","|"," "," "," "," ","|"},{" ","\\","_","_","_","|","_","_","_","/"}},{{" "," ","_","_","\\","O","/","_","_"},{" ","/"," "," "," ","|"," "," "," ","\\"},{"|","_","_","_","_","|","_","_","_","_","|"},{"|"," "," "," "," ","|"," "," "," "," ","|"},{" ","\\"," "," "," ","|"," "," "," ","/"},{" "," ","\\","_","_","|","_","_","/"}},{{"_","_","_","c","O","_","_","_"},{"|"," "," ","o"," ","°"," ","|"},{"|"," ","°"," ","o"," ","°","|"},{"|"," ","o"," "," ","°"," ","|"},{"|","_","_","_","_","_","_","|"}},{{"_","_","_","c","O","_","_","_"},{"|"," "," "," "," ","°"," ","|"},{"|"," ","°"," ","o"," ","°","|"},{"|","_","_","_","_","_","_","|"}},{{"_","_","_","_","_","(","\\","/",")","_","_","_","_","_"},{"|"," "," "," "," "," "," "," "," "," "," "," "," ","|"},{"|","~","~","~","~","~","~","~","~","~","~","~","~","|"},{"|","~","~","~","~","~","~","~","~","~","~","~","~","|"},{"|"," "," "," "," "," "," "," "," "," "," "," "," ","|"},{"|","_","_","_","_","_","_","_","_","_","_","_","_","|"}},{{" ","_","_",")","(","_","_"},{"|"," "," "," "," "," "," ","|"},{"|","=","=","=","=","=","=","|"},{"|","_","_","_","_","_","_","|"}},{{" "," "," "," "," ","\\","v","/"},{"_","_","_","_","_","_","O","_","_","_","_","_","_"},{"|"," "," "," ","|"," "," "," ","|"," "," "," ","|"},{"|"," "," "," ","|"," "," "," ","|"," "," "," ","|"},{"|"," "," "," ","|"," "," "," ","|"," "," "," ","|"},{"|"," "," "," ","|"," "," "," ","|"," "," "," ","|"},{"|","_","_","_","|","_","_","_","|","_","_","_","|"}},{{"_","_","_","o","O","_","_","_"},{"|"," "," ","|","|"," "," ","|"},{"|","_","_","|","|","_","_","|"}},{{"_","_","_","o","O","_","_","_"},{"|"," "," ","|","|"," "," ","|"},{"|"," "," ","|","|"," "," ","|"},{"|","_","_","|","|","_","_","|"}},{{"_","_","_","C","_","_","_"},{"|","_","_","|","_","_","|"},{"|","_","_","|","_","_","|"}},{{"_","_","_","V","_","_","_"},{"|"," "," ","|"," "," ","|"},{"|","_","_","|","_","_","|"}},{{" "," "," "," "," ","("," ",")"},{" ","_","_","_","_","_","O","_","_","_","_","_"," "},{"|"," "," "," "," "," ","|"," "," "," "," "," ","|"},{"|","_","_","_","_","_","|","_","_","_","_","_","|"},{"|"," "," "," "," "," ","|"," "," "," "," "," ","|"},{"|","_","_","_","_","_","|","_","_","_","_","_","|"}},{{" ","+"},{"[","|","]"}},{{" ","_","_","_","_","_","_","_","o","O","_","_","_","_","_","_","_"},{"|"," "," "," "," "," "," "," ","|","|"," "," "," "," "," "," "," ","|"},{"|","~","~","~","~","~","~","~","|","|","~","~","~","~","~","~","~","|"},{"|","_","_","_","_","_","_","_","|","|","_","_","_","_","_","_","_","|"}},{{" "," "," ","_","c","O","_"," "," "},{" "," ","|","_","_","_","_","|"," "},{"_","_","|","_","_","_","_","|","_"},{"|"," "," "," ","|"," "," "," ","|"},{"|"," "," "," ","|"," "," "," ","|"},{"|","_","_","_","|","_","_","_","|"}}};
+            String[][][] encodageCouleurs  = {{{"0","1","1","1","1","1","1","1","1","1","1","0"},{"1","1","0","2","0","0","0","2","0","0","0","1"},{"1","0","2","0","0","0","2","0","0","0","2","1"},{"1","2","1","1","1","2","1","1","1","2","1","1"}},{{"0","1","1","1","1","1"},{"1","0","2","2","2","0","1"},{"1","1","1","1","1","1","1"}},{{"0","1","1","1","1","1","1","1"},{"1","0","0","2","0","2","0","0","1"},{"1","0","0","0","2","0","0","0","1"},{"1","1","1","2","1","2","1","1","1"}},{{"1","2","2","1"},{"1","0","0","1"},{"1","1","1","1"}},{{"0","1","1","2","1","1"},{"1","0","0","2","0","0","1"},{"1","1","1","2","1","1","1"}},{{"0","1","1","1","2","1","1","1"},{"1","1","1","1","2","1","1","1","1"}},{{"0","1","2","1"},{"1","1","1","1","1"}},{{"0","1","2","1"},{"1","1","2","1","1"}},{{"0","1"},{"2","1","2"}},{{"1","2","1"}},{{"1","2","1"}},{{"1","2","1"}},{{"0","1","1","1","1","1","1","1","1"},{"1","2","2","2","2","2","2","2","2","1","2"},{"1","1","1","1","1","1","1","1","1","1","2"}},{{"0","0","1","2","1"},{"0","0","1","2","1"},{"0","0","1","2","1"},{"0","1","0","2","0","1"},{"1","0","0","2","0","0","1"},{"1","2","2","2","2","2","1"},{"1","0","0","2","0","0","1"},{"1","0","0","2","0","0","1"},{"1","1","1","2","1","1","1"}},{{"0","0","1","1","2","2","2","1","1"},{"0","1","0","0","0","2","0","0","0","1"},{"1","2","2","2","2","2","2","2","2","2","1"},{"1","0","0","0","0","2","0","0","0","0","1"},{"0","1","1","1","1","2","1","1","1","1"}},{{"0","0","1","1","2","2","2","1","1"},{"0","1","0","0","0","2","0","0","0","1"},{"1","2","2","2","2","2","2","2","2","2","1"},{"1","0","0","0","0","2","0","0","0","0","1"},{"0","1","0","0","0","2","0","0","0","1"},{"0","0","1","1","1","2","1","1","1"}},{{"1","1","1","2","2","1","1","1"},{"1","0","0","3","0","3","0","1"},{"1","0","3","0","3","0","3","1"},{"1","0","3","0","0","3","0","1"},{"1","1","1","1","1","1","1","1"}},{{"1","1","1","2","2","1","1","1"},{"1","0","0","0","0","3","0","1"},{"1","0","4","0","5","0","2","1"},{"1","1","1","1","1","1","1","1"}},{{"1","1","1","1","1","2","2","2","2","1","1","1","1","1"},{"1","0","0","0","0","0","0","0","0","0","0","0","0","1"},{"1","3","3","3","3","3","3","3","3","3","3","3","3","1"},{"1","3","3","3","3","3","3","3","3","3","3","3","3","1"},{"1","0","0","0","0","0","0","0","0","0","0","0","0","1"},{"1","1","1","1","1","1","1","1","1","1","1","1","1","1"}},{{"0","1","1","2","2","1","1"},{"1","0","0","0","0","0","0","1"},{"1","2","2","2","2","2","2","1"},{"1","1","1","1","1","1","1","1"}},{{"0","0","0","0","0","2","2","2"},{"1","1","1","1","1","1","2","1","1","1","1","1","1"},{"1","1","1","0","2","0","0","0","2","0","0","0","1"},{"1","0","0","0","2","0","0","0","2","0","0","0","1"},{"1","0","0","0","2","0","0","0","2","0","0","0","1"},{"1","0","0","0","2","0","0","0","2","0","0","0","1"},{"1","1","1","1","2","1","1","1","2","1","1","1","1"}},{{"1","1","1","2","2","1","1","1"},{"1","0","0","2","2","0","0","1"},{"1","1","1","2","2","1","1","1"}},{{"1","1","1","2","2","1","1","1"},{"1","0","0","2","2","0","0","1"},{"1","0","0","2","2","0","0","1"},{"1","1","1","2","2","1","1","1"}},{{"1","1","1","2","1","1","1"},{"1","2","2","2","2","2","1"},{"1","1","1","2","1","1","1"}},{{"1","1","1","2","1","1","1"},{"1","0","0","2","0","0","1"},{"1","1","1","2","1","1","1"}},{{"0","0","0","0","0","1","0","1"},{"0","2","2","2","2","2","1","2","2","2","2","2","0"},{"2","0","0","0","0","0","1","0","0","0","0","0","2"},{"2","1","1","1","1","1","1","1","1","1","1","1","2"},{"2","0","0","0","0","0","1","0","0","0","0","0","2"},{"2","2","2","2","2","2","1","2","2","2","2","2","2"}},{{"0","2"},{"1","2","1"}},{{"0","1","1","1","1","1","1","1","2","2","1","1","1","1","1","1","1"},{"1","0","0","0","0","0","0","0","2","2","0","0","0","0","0","0","0","1"},{"1","2","2","2","2","2","2","2","2","2","2","2","2","2","2","2","2","1"},{"1","1","1","1","1","1","1","1","2","2","1","1","1","1","1","1","1","1"}},{{"0","0","0","1","3","3","1","0","0"},{"0","0","1","3","3","3","3","1","0"},{"2","2","1","2","2","2","2","1","2"},{"2","0","0","0","3","0","0","0","2"},{"2","0","0","0","3","0","0","0","2"},{"2","2","2","2","3","2","2","2","2"}}};;
+            int[] nbCouleursCadeaux = {2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,5,3,2,2,2,2,2,2,2,2,2,3};
+            ArrayList<Integer> cadeauxBonneHauteur = new ArrayList<>();
+            ArrayList<Integer> cadeauxBonneLargeur = new ArrayList<>();
+            int largeurMax=0;
+            int largeurMaxMax=0;
+            int largeurMaxMin=0;
+            String[][] TRONC; //le tableau à afficher
+            ArrayList<String> couleursDuCadeau = new ArrayList<String>(); //liste des nom des couleurs pour le cadeau actuel
+            boolean dejaLa; //pour éviter les répétitions de couleurs
+            int espaceDispo; //cb de place pour le cadeau ?
+            int xA; //point gauche du cadeau
+            int xB; //limite droite possible du cadeau
+            int decalageCadeau;
+            int quelCadeau, indiceQuelCadeau;
+            String tempClr;
+            String[] listeCouleurs = {"rouge","jaune","blanc","bleu","cyan","violet","vert"};
+            boolean deuxiemePartie =false;
 
-            if (taille<6) tronc--;
+            //initialisation du tableau, vide
+            TRONC = new String[taille/8+1][largeur*2+1];
+            for (String[] lignes : TRONC) Arrays.fill(lignes, " ");
 
-            for (int y = 0; y < taille/8+1; y++){
-                for (int x = -largeur; x <= largeur; x++){
-                    
-                    if (Math.abs(x)<tronc/2+1) System.out.print(noir+"|"+reset);
-                    else if (rng.nextInt(100)<(quantiteNeige/2)) System.out.print(blanc+neige+reset);
-                    else System.out.print(" ");
-
+            //tronc et neige
+            for (int y=0; y<TRONC.length; y++) {
+                for (int x=0; x<TRONC[y].length; x++) {
+                    if (rng.nextInt(100)<(quantiteNeige) && (x<taille/4+2 || x>largeur*2+1-(taille/4+2))) TRONC[y][x] = blanc+neige+reset;
+                    else if (rng.nextInt(100)<(quantiteNeige/3) && x>taille/4+2 && x<largeur*2+1-(taille/4+2)) TRONC[y][x] = blanc+neige+reset;
+                    if (x>=largeur-(taille/4+1)/2 && x<=largeur+(taille/4+1)/2) TRONC[y][x] = noir+"|"+reset;
                 }
-                System.out.println();
+            }
 
+            //détermination des coordonnées des limites pour les cadeaux
+            decalageCadeau = rng.nextInt(1,taille/8+2);
+            xA = taille/4 + 2 + decalageCadeau;
+            xB = taille + taille/4 - (taille/4+1)/2;
+            espaceDispo = xB-xA;
+
+            //filtrage des cadeaux en fonction de leurs hauteurs
+            for (int i=0; i<cadeaux.length; i++) {
+                if (cadeaux[i].length<taille/8+1) cadeauxBonneHauteur.add(i);
             }
 
 
+            //choix des cadeaux
+            while (espaceDispo>5 && cadeauxBonneHauteur.size()>0) {
+                decalageCadeau = rng.nextInt(1,taille/8+2);
+                cadeauxBonneLargeur.clear();
+
+                //filtrage des cadeaux en fonction de leurs largeurs
+                for (int jsp : cadeauxBonneHauteur){
+                    largeurMax = 0;
+                    for (int i=0; i<cadeaux[jsp].length;i++){
+                        if (cadeaux[jsp][i].length>largeurMax) largeurMax = cadeaux[jsp][i].length;
+                    }
+                    if (largeurMax<espaceDispo) cadeauxBonneLargeur.add(jsp);
+                    if (largeurMaxMax<largeurMax) largeurMaxMax = largeurMax;
+                }
+
+                if (cadeauxBonneLargeur.size()!=0 && espaceDispo>largeurMaxMax) {
+
+                    //choix du cadeau
+                    indiceQuelCadeau = rng.nextInt(cadeauxBonneLargeur.size());
+                    quelCadeau = cadeauxBonneLargeur.get(indiceQuelCadeau);
+
+
+                    //choix des couleurs du cadeau
+                    couleursDuCadeau.clear();
+                    couleursDuCadeau.add("");
+                    while (couleursDuCadeau.size()<nbCouleursCadeaux[quelCadeau]+1) {
+                        tempClr = listeCouleurs[rng.nextInt(listeCouleurs.length)];
+                        dejaLa = false;
+                        for (int z=0; z<couleursDuCadeau.size(); z++){
+                            if (tempClr==couleursDuCadeau.get(z)) dejaLa = true;
+                        }
+                        if (!dejaLa) couleursDuCadeau.add(tempClr); 
+                    }
+
+                    //cherche les codes couleurs
+                    for (int j=0; j<encodageCouleurs[quelCadeau].length;j++){
+                        for (int k=0; k<encodageCouleurs[quelCadeau][j].length; k++){
+                            encodageCouleurs[quelCadeau][j][k] = couleursDuCadeau.get(Integer.parseInt(encodageCouleurs[quelCadeau][j][k])); //remplace l'encodage par les vrais codes couleurs
+                        }
+                    }
+                    
+                    //application des couleurs aux caractères du cadeau
+                    for (int j=0; j<cadeaux[quelCadeau].length;j++){
+                        for (int k=0; k<cadeaux[quelCadeau][j].length; k++){
+                        cadeaux[quelCadeau][j][k] = codesCouleurs.get(encodageCouleurs[quelCadeau][j][k])+cadeaux[quelCadeau][j][k]+"\033[0m";
+                        }
+                    }
+
+                    //inscription du cadeau dans le tableau
+                    for (int y=0; y<cadeaux[quelCadeau].length; y++) {
+                        for (int x=0; x<cadeaux[quelCadeau][y].length; x++) {
+                            TRONC[taille/8+1-cadeaux[quelCadeau].length+y][xA+x] = cadeaux[quelCadeau][y][x];
+                        }
+                    }
+                    xA += cadeaux[quelCadeau][cadeaux[quelCadeau].length-1].length + decalageCadeau;
+
+                    cadeauxBonneHauteur.remove(indiceQuelCadeau);
+                }
+                else if (!deuxiemePartie) { //passage à droite du tronc
+                    deuxiemePartie = true;
+                    xA = largeur+(taille/4+1)/2+decalageCadeau+1;
+                    xB = largeur*2+1-taille/4-4;
+                }  
+                else break; //deux côtés finis
+
+                espaceDispo = xB - xA;
+
+            }
+
+            //affichage
+            for (String[] ligne : TRONC){
+                for (String caractere : ligne){
+                    System.out.print(caractere);
+                }
+                System.out.println();
+            }
+
+
+            //SOL
             quantiteNeigeSol = quantiteNeige * (4-choixNeige)*(4-choixNeige)*choixNeige;
             quantiteNeigeSol = (int)Math.round(Math.sqrt(quantiteNeigeSol));
 
@@ -392,7 +500,6 @@ public class sapin {
             else if (quantiteNeigeSol>12 && quantiteNeigeSol<=15) couleursSol = solNeige5;
             else if (quantiteNeigeSol>15) couleursSol = solNeige6;
             else couleursSol = solNeige1;
-
 
             couleurSol ="\033[100;2;90;7m";
 
@@ -415,97 +522,5 @@ public class sapin {
                 System.out.println();
             }
             
-            // System.out.println("X".repeat(taille/4+taille-(taille/4+1)/2)+"O".repeat(taille/4+5));
-            // System.out.println("O".repeat(taille/4+2+2+rng.nextInt(taille/10))+"X".repeat((taille/4+taille-(taille/4+1)/2)-(taille/4+2+2+rng.nextInt(taille/10)))+"O".repeat(taille/4+3));
-
-
-
-            String[][][] cadeaux = {{{" ","_","_","O","_","_"," "},{"|"," "," ","|"," "," ","|"},{"|","=","=","|","=","=","|"},{"|","_","_","|","_","_","|"}},{{" ","_","_","_","_","_","_","_","o","O","_","_","_","_","_","_","_"},{"|"," "," "," "," "," "," "," ","|","|"," "," "," "," "," "," "," ","|"},{"|","~","~","~","~","~","~","~","|","|","~","~","~","~","~","~","~","|"},{"|","_","_","_","_","_","_","_","|","|","_","_","_","_","_","_","_","|"}},{{" "," "," ","_","c","O","_"," "," "},{" "," ","|","_","_","_","_","|"," "},{"_","_","|","_","_","_","_","|","_"},{"|"," "," "," ","|"," "," "," ","|"},{"|"," "," "," ","|"," "," "," ","|"},{"|","_","_","_","|","_","_","_","|"}}};
-            String[][][] encodageCouleurs  = {{{"0","1","1","2","1","1","0"},{"1","0","0","2","0","0","1"},{"1","2","2","2","2","2","1"},{"1","1","1","2","1","1","1"}},{{"0","1","1","1","1","1","1","1","2","2","1","1","1","1","1","1","1"},{"1","0","0","0","0","0","0","0","2","2","0","0","0","0","0","0","0","1"},{"1","2","2","2","2","2","2","2","2","2","2","2","2","2","2","2","2","1"},{"1","1","1","1","1","1","1","1","2","2","1","1","1","1","1","1","1","1"}},{{"0","0","0","1","3","3","1","0","0"},{"0","0","1","3","3","3","3","1","0"},{"2","2","1","2","2","2","2","1","2"},{"2","0","0","0","3","0","0","0","2"},{"2","0","0","0","3","0","0","0","2"},{"2","2","2","2","3","2","2","2","2"}}};;
-            int[] nbCouleursCadeaux = {2,2,3};
-            ArrayList<Integer> cadeauxBonneHauteur = new ArrayList<>();
-            ArrayList<Integer> cadeauxBonneLargeur = new ArrayList<>();
-            int largeurMax=0;
-            String[][] TRONC; //le tableau à afficher
-            ArrayList<String> couleursDuCadeau = new ArrayList<String>(); //liste des nom des couleurs pour le cadeau actuel
-            boolean dejaLa; //pour éviter les répétitions de couleurs
-            int espaceDispo; //cb de place pour le cadeau ?
-            int xA; //point gauche du cadeau
-            int xB; //limite droite possible du cadeau
-            int decalageCadeau;
-            int quelCadeau;
-
-            TRONC = new String[taille/8+1][largeur*2+1];
-            for (String[] lignes : TRONC) Arrays.fill(lignes, " ");
-
-            decalageCadeau = rng.nextInt(1,taille/12+2);
-            xA = taille/4 + 2 + decalageCadeau;
-            xB = taille + taille/4 - (taille/4+1)/2;
-            espaceDispo = xB-xA;
-
-            //filtrage des cadeaux en fonction de leurs hauteurs
-            for (int i=0; i<cadeaux.length; i++) {
-                if (cadeaux[i].length<taille/8+1) cadeauxBonneHauteur.add(i);
-            }
-
-
-            System.out.println(cadeauxBonneHauteur);/////
-
-
-            while (espaceDispo>5) {
-                decalageCadeau = rng.nextInt(1,taille/12+2);
-                cadeauxBonneLargeur.clear();
-
-                //filtrage des cadeaux en fonction de leurs largeurs
-                for (int jsp : cadeauxBonneHauteur){
-                    largeurMax = 0;
-                    for (int i=0; i<cadeaux[jsp].length;i++){
-                        if (cadeaux[jsp][i].length>largeurMax) largeurMax = cadeaux[jsp][i].length;
-                    }
-                    if (largeurMax<=espaceDispo) cadeauxBonneLargeur.add(jsp);
-                }
-
-                quelCadeau = rng.nextInt(cadeauxBonneLargeur.size());
-
-                for (int y=0; y<cadeaux[cadeauxBonneLargeur.get(quelCadeau)].length; y++) {
-                    for (int x=0; x<cadeaux[cadeauxBonneLargeur.get(quelCadeau)][y].length; x++) {
-                        TRONC[taille/8+1-cadeaux[cadeauxBonneLargeur.get(quelCadeau)].length+y][xA+x] = cadeaux[cadeauxBonneLargeur.get(quelCadeau)][y][x];
-
-                    }
-                }
-                xA += cadeaux[cadeauxBonneLargeur.get(quelCadeau)][1].length + decalageCadeau;
-                espaceDispo = xB - xA;
-
-                cadeauxBonneHauteur.remove(quelCadeau);
-
-            }
-
-            for (String[] ligne : TRONC){
-                for (String car : ligne){
-                    System.out.print(car);
-                }
-                System.out.println();
-            }
-
-
-
-
-
-
-            for (int y=0;y<TRONC.length;y++){
-                for (int x=0; x<TRONC[y].length;x++){
-                    if (x>xA && x<xB) System.out.print("O");
-                    else System.out.print("X");
-                }
-                System.out.println();
-            }
-
-
-
-
-
-
-
-
             sc.close();
 }}
