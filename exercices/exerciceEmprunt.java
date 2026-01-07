@@ -16,7 +16,7 @@ public class exerciceEmprunt {
 
 
         mois=nbrAnneeRbmt*12;
-        tauxInteretmensuel = tauxInteretAnnuel/12;
+        tauxInteretmensuel = tauxInteretAnnuel/1200;
         q = (1-Math.pow((1+tauxInteretmensuel),-mois));
 
         mensualite = capitalEmprunte * tauxInteretmensuel/q;
