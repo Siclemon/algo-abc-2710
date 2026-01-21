@@ -32,7 +32,7 @@ public class exerciceLettresDansChaine {
             }
         }
         System.out.println();
-        
+        sc.close();
 
     }
 }
