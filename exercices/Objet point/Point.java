@@ -1,8 +1,8 @@
 public class Point {
-    private int x;
-    private int y;
+    private double x;
+    private double y;
 
-    public Point(int x, int y) {
+    public Point(double x, double y) {
         this.x = x;
         this.y = y;
     }
@@ -12,25 +12,25 @@ public class Point {
         this.y = 0;
     }
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 
     public void position() {
-        System.out.println("X : "+x+"\tY : "+y);
+        System.out.println("X : "+x+"  \tY : "+y);
     }
 
-    public void deplacer(int x, int y) {
+    public void deplacer(double x, double y) {
         this.x += x;
         this.y += y;
     }
 
     public void permutation() {
-        int temp = x;
+        double temp = x;
         x = y;
         y = temp;
     }
@@ -45,5 +45,9 @@ public class Point {
 
     public Point symOrigine() {
         return new Point(-x, -y);
+    }
+    
+    public double distance(Point autrePoint) {
+        return Math.sqrt(Math.pow(x-autrePoint.getX(),2)+Math.pow(y-autrePoint.getY(), 2));
     }
 }

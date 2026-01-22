@@ -35,24 +35,26 @@ public class AppPoint {
 
         point6.position();
 
-        listePoints.add(point);
-        listePoints.add(point2);
-        listePoints.add(point3);
-        listePoints.add(point4);
+        System.out.println(point.distance(point5));
+
+        // listePoints.add(point);
+        // listePoints.add(point2);
+        // listePoints.add(point3);
+        // listePoints.add(point4);
         //graphique();
     }
 
 
     public static void graphique() {
         System.out.print("\033\143" + "\033[48;2;255;255;255m\033[38;2;0;0;0m");
-        int[] coord = coordonneesMax();
-        int xMin = coord[0];
-        int xMax = coord[1];
-        int yMin = coord[2];
-        int yMax = coord[3];
+        double[] coord = coordonneesMax();
+        double xMin = coord[0];
+        double xMax = coord[1];
+        double yMin = coord[2];
+        double yMax = coord[3];
 
-        for (int y=yMin; y<=yMax; y++) {
-            for (int x=xMin; x<=xMax; x++) {
+        for (double y=yMin; y<=yMax; y++) {
+            for (double x=xMin; x<=xMax; x++) {
                 if (x!=0 && y/2!=0) System.out.print("\033["+(y/2+yMax)+";"+(x-xMin)+"H" + " ");
                 if (x==0)
                     System.out.print("\033["+(y/2+yMax)+";"+(x-xMin)+"H" + "█");
@@ -68,8 +70,8 @@ public class AppPoint {
         System.out.print("\33[15;1H" + "\033[m");
     }
 
-    public static int[] coordonneesMax() {
-        int[] ret = {-5,5,-5,5};
+    public static double[] coordonneesMax() {
+        double[] ret = {-5,5,-5,5};
 
         for (Point pt : listePoints) {
             if (pt.getX()<ret[0])
@@ -89,7 +91,7 @@ public class AppPoint {
         return ret;
     }
 
-    public static String hautOuBas(int y) {
+    public static String hautOuBas(double y) {
         if (y%2==0)
             return "▀";
         else
