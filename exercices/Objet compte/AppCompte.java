@@ -23,6 +23,7 @@ public class AppCompte {
             for (String string : options) {
                 System.out.println(string);
             }
+            double montant;
 
             System.out.print("\n  > ");
             char input = sc.nextLine().charAt(0);
@@ -37,7 +38,10 @@ public class AppCompte {
                     break;
                 case 'd':
                     System.out.print("\n\nCombien voulez-vous retirer ?\n> ");
-                    compte.debiter(sc.nextDouble());
+                    montant = sc.nextDouble();
+                    if (compte.soldeSuffisant(montant))
+                        compte.debiter(montant);
+                    else System.out.print("\033[38;2;255;0;0mSolde insuffisant\033[m");
                     sc.nextLine();
                     break;
                 case 'q':
@@ -52,7 +56,10 @@ public class AppCompte {
                 case 't':
                     temp = choixCompte(liste);
                     System.out.print("Montant à transférer : ");
-                    compte.transferer(temp, sc.nextDouble());
+                    montant = sc.nextDouble();
+                    if (compte.soldeSuffisant(montant))
+                        compte.transferer(temp, montant);
+                    else System.out.print("\033[38;2;255;0;0mSolde insuffisant\033[m");
                     sc.nextLine();
                     break;
                 case 'o':

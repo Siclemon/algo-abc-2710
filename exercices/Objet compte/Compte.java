@@ -1,9 +1,9 @@
 import java.util.Date;
 
 public class Compte {
-    private final long numero;
-    private final String nom;
-    private double solde;
+    protected final long numero;
+    protected final String nom;
+    protected double solde;
     private final double decouvertAutorise;
 
     public Compte(String nom, double solde) {
@@ -13,9 +13,9 @@ public class Compte {
         decouvertAutorise = -500;
     }
 
-    public long getNumero() {
-        return numero;
-    }
+    // public long getNumero() {
+    //     return numero;
+    // }
 
     public String getNom() {
         return nom;
@@ -25,9 +25,9 @@ public class Compte {
         return solde;
     }
 
-    public double getDecouvertAutorise() {
-        return decouvertAutorise;
-    }
+    // public double getDecouvertAutorise() {
+    //     return decouvertAutorise;
+    // }
 
     private long genererNumero() {
         Date date = new Date();
@@ -39,10 +39,7 @@ public class Compte {
     }
 
     public void debiter(double montant) {
-        if (soldeSuffisant(montant))
-            solde -= montant;
-        else
-            System.out.print("\033[38;2;255;0;0mSolde insuffisant\033[m");
+        solde -= montant;
     }
 
     public void transferer(Compte autreCompte, double montant) {
@@ -64,11 +61,22 @@ public class Compte {
         else return 0;
     }
 
-    private boolean soldeSuffisant(double montant) {
+    public boolean soldeSuffisant(double montant) {
         return solde-montant>=decouvertAutorise;
     }
 
     public String toString() {
         return "\033[1;4mInformations du compte :\033[22;24m" + "\nNuméro de compte : "+ numero + "\nTitulaire : " + nom + "\nSolde : " + solde + "\nDécouvert autorisé : " + decouvertAutorise;
     }
+}
+
+class CompteEpargne extends Compte{
+    float taux;
+
+    public CompteEpargne(String nom, double solde, float taux){
+        super(nom, solde);
+        this.taux = taux;
+    }
+
+    //public 
 }
